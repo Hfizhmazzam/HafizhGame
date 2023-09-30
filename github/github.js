@@ -81,7 +81,7 @@ export default class MemoryGameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("bg", "images/bg.jpg");
+    this.load.image("bg", "images/bg2.jpg");
     this.load.spritesheet("tilesheet", "images/sokoban_tilesheet.png", {
       frameWidth: 64,
     });
@@ -128,15 +128,14 @@ export default class MemoryGameScene extends Phaser.Scene {
       child.setDepth(child.y);
     });
     this.updateActiveBox();
-
     this.timerLabel
-    .setStyle({
-      fontSize: "80px",
-      fill: "#ffffff",
-      fontStyle: "bold",
-      align: "center",
-    })
-    .setText(String(this.countdownTimer));
+      .setStyle({
+        fontSize: "80px",
+        fill: "#ffffff",
+        fontStyle: "bold",
+        align: "center",
+      })
+      .setText(String(this.countdownTimer));
   }
 
   createBoxes() {
@@ -146,10 +145,10 @@ export default class MemoryGameScene extends Phaser.Scene {
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
         this.boxGroup
-        .get(width * xPer, y, "tilesheet", 7)
-        .setSize(64, 32)
-        .setOffset(0, 32)
-        .setData("itemType", level[row][col]);
+          .get(width * xPer, y, "tilesheet", 7)
+          .setSize(64, 32)
+          .setOffset(0, 32)
+          .setData("itemType", level[row][col]);
         xPer += 0.25;
       }
       xPer = 0.25;
@@ -164,7 +163,7 @@ export default class MemoryGameScene extends Phaser.Scene {
     player.setCollideWorldBounds(true);
     this.anims.create({
       key: "standby",
-      frames: [{ key: "tilesheet", frame: 52 }],
+      frames: [{ key: "tilesheet", frame: 73 }],
     });
     this.anims.create({
       key: "down",
@@ -172,7 +171,7 @@ export default class MemoryGameScene extends Phaser.Scene {
         start: 52,
         end: 54,
       }),
-      frameRate: 10,
+      frameRate: 120,
       repeat: -1,
     });
     this.anims.create({
@@ -375,15 +374,15 @@ export default class MemoryGameScene extends Phaser.Scene {
         this.player.active = false;
         this.player.setVelocity(0, 0);
         this.add
-        .text(this.halfWidth, this.halfHeight + 250, "You Win!", {
-          fontSize: "60px",
-        })
-        .setOrigin(0.5);
-      this.winCondition = true;
+          .text(this.halfWidth, this.halfHeight + 250, "You Win!", {
+            fontSize: "60px",
+          })
+          .setOrigin(0.5);
+        this.winCondition = true;
       }
     });
-   }
-   gameOver() {
+  }
+  gameOver() {
     if (this.countdownTimer == 0) {
       this.add
         .text(this.halfWidth, this.halfHeight + 250, "You Lose!", {
@@ -397,4 +396,4 @@ export default class MemoryGameScene extends Phaser.Scene {
       this.countdownTimer -= 1;
     }
   }
-  }
+}
